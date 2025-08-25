@@ -1,0 +1,60 @@
+-- Criar um painel
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local ESPButton = Instance.new("TextButton")
+local SpeedButton = Instance.new("TextButton")
+local JumpButton = Instance.new("TextButton")
+
+-- Configurações do painel
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Frame.Size = UDim2.new(0, 200, 0, 150)
+Frame.Position = UDim2.new(0.5, -100, 0.5, -75)
+Frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+Frame.Parent = ScreenGui
+
+-- Configurações do botão ESP
+ESPButton.Size = UDim2.new(1, 0, 0, 50)
+ESPButton.Position = UDim2.new(0, 0, 0, 0)
+ESPButton.Text = "ESP"
+ESPButton.Parent = Frame
+
+-- Configurações do botão Velocidade
+SpeedButton.Size = UDim2.new(1, 0, 0, 50)
+SpeedButton.Position = UDim2.new(0, 0, 0, 50)
+SpeedButton.Text = "Velocidade"
+SpeedButton.Parent = Frame
+
+-- Configurações do botão Pulo
+JumpButton.Size = UDim2.new(1, 0, 0, 50)
+JumpButton.Position = UDim2.new(0, 0, 0, 100)
+JumpButton.Text = "Pulo"
+JumpButton.Parent = Frame
+
+-- Função para ativar ESP
+local function activateESP()
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player ~= game.Players.LocalPlayer then
+            local highlight = Instance.new("Highlight")
+            highlight.Adornee = player.Character
+            highlight.FillColor = Color3.new(1, 0, 0) -- Cor do ESP
+            highlight.Parent = player.Character
+        end
+    end
+end
+
+-- Função para aumentar a velocidade
+local function increaseSpeed()
+    local player = game.Players.LocalPlayer
+    player.Character.Humanoid.WalkSpeed = 100 -- Aumenta a velocidade
+end
+
+-- Função para aumentar o pulo
+local function increaseJump()
+    local player = game.Players.LocalPlayer
+    player.Character.Humanoid.JumpPower = 100 -- Aumenta o pulo
+end
+
+-- Conectar os botões às funções
+ESPButton.MouseButton1Click:Connect(activateESP)
+SpeedButton.MouseButton1Click:Connect(increaseSpeed)
+JumpButton.MouseButton1Click:Connect(increaseJump)
